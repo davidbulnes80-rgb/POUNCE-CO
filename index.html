@@ -184,16 +184,22 @@
 
         .products-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 320px));
             gap: 2rem;
+            justify-content: center;
+            padding: 0 1rem;
         }
 
         .product-card {
             background-color: var(--dark-card);
-            border-radius: 10px;
+            border-radius: 12px;
             overflow: hidden;
             transition: all 0.3s ease;
             border: 1px solid var(--gray-dark);
+            width: 100%;
+            max-width: 320px;
+            display: flex;
+            flex-direction: column;
         }
 
         .product-card:hover {
@@ -204,14 +210,19 @@
 
         .product-image {
             width: 100%;
-            height: 250px;
+            height: 260px;
             background: linear-gradient(135deg, var(--gray-dark), var(--dark-bg));
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 3rem;
-            color: var(--electric-blue);
-            font-weight: 700;
+            padding: 0.2rem;
+            overflow: hidden;
+        }
+
+        .product-image img {
+             width: 100%;
+             height: 100%;
+             object-fit: contain; 
         }
 
         .product-info {
@@ -242,7 +253,7 @@
         }
 
         /* RESPONSIVE */
-        @media (max-width: 768px) {
+        @media (max-width: 769px) {
             .navbar {
                 flex-wrap: wrap;
                 gap: 0.25rem;
@@ -254,6 +265,16 @@
                 margin: 1rem 0 0 0;
                 order: 2;
             }
+
+            .product-image {
+                height: 180px !important; 
+                padding: 0.5rem !important; 
+            }
+            
+            .product-image img {
+                object-fit: contain !important;
+            }
+        }
 
             .logo {
                 font-size: 1.25rem;
@@ -285,7 +306,6 @@
                 height: 200px;
                 font-size: 1.25rem;
             }
-        }
 
         @media (max-width: 480px) {
             header {
@@ -305,39 +325,45 @@
 </head>
 
 <body>
-    <!-- HEADER -->
+
     <header>
         <nav class="navbar">
             <div class="logo">Pounce Co</div>
             <div class="search-box">
-                <input type="text" placeholder="Buscar Zapatillas...">
+                <input type="text" id="brandSearch" onkeyup="filtrarZapatillas()" placeholder="Buscar Zapatillas...">
             </div>
             <ul>
                 <li><a href="#home">Inicio</a></li>
                 <li><a href="#shop">Tienda</a></li>
                 <li><a href="#about">Ubicación</a></li>
                 <li><a href="#contact">Ayuda</a></li>
+               
+
+    <li style="position: relative;">
+        <a href="javascript:void(0)" onclick="alternarCarrito()" style="display: flex; align-items: center; gap: 5px;">
+            🛒 <span id="cartCount" style="background-color: #F96815; color: #000; font-weight: 900; padding: 2px 7px; border-radius: 50px; font-size: 0.8rem;">0</span>
+        </a>
+    </li>
+</ul>
             </ul>
         </nav>
     </header>
 
-    <!-- HERO SECTION -->
-    <section class="hero">
+    <section  class="hero" id="home">
         <div class="hero-content">
             <h1>Zapatillas de Lujo</h1>
             <p>Descubre las mejores marcas más exclusivas del streetwear y zapatillas de diseñador</p>
-            <button class="cta-btn">Comprar Ahora</button>
+             <a href="#shop" class="cta-btn" style="text-decoration: none; display: inline-block;">Comprar Ahora</a>
         </div>
     </section>
 
-    <!-- PRODUCTS SECTION -->
     <section class="products-section" id="shop">
         <h2>Nuestras Colecciones</h2>
         <div class="products-grid">
-            <!-- Jordan -->
-            <div class="product-card">
-                <div class="product-image"> 
-                    <img src="https://tse3.mm.bing.net/th/id/OIP.nz73j98iQv54vpsAjwELgAHaHa?w=600&h=600&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Air Jordan 1 Retro" style="width: 100%; height: 111%; object-fit: cover;">
+  
+            <div class="product-card" onclick="abrirModal('Jordan', 'Jordan 11 retro gamma blue', 'S/1,010.00')" style="cursor: pointer;">
+                <div class="product-image">
+                    <img src="https://tse3.mm.bing.net/th/id/OIP.nz73j98iQv54vpsAjwELgAHaHa?w=600&h=600&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Air Jordan 1 Retro" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
                 <div class="product-info">
                     <div class="product-brand">jordan</div>
@@ -346,89 +372,120 @@
                 </div>
             </div>
 
-            <!-- Nike -->
-            <div class="product-card">
-                <div class="product-image"> 
-                    <img src="https://tse3.mm.bing.net/th/id/OIP.K26CBmqlv7dCTMzFFieAwwHaHa?w=3144&h=3144&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Nike Air Max Tn" style="width: 100%; height: 110%; object-fit: cover;">
+            <div class="product-card" onclick="abrirModal('Nike', 'Nike Air Max Tn', 'S/400.00')" style="cursor: pointer;">
+                <div class="product-image">
+                    <img src="https://tse3.mm.bing.net/th/id/OIP.K26CBmqlv7dCTMzFFieAwwHaHa?w=3144&h=3144&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Nike Air Max Tn" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
                 <div class="product-info">
-                    <div class="product-brand">Nike</div>
+                    <div class="product-brand">nike</div>
                     <div class="product-name">Nike Air Max Tn</div>
                     <div class="product-price">S/400.00</div>
                 </div>
             </div>
 
-            <!-- Adidas -->
-            <div class="product-card">
+            <div class="product-card" onclick="abrirModal('Adidas', 'Adidas Yeezy Boost 700', 'S/350.00')" style="cursor: pointer;">
                 <div class="product-image">
-                    <img src="https://th.bing.com/th/id/R.7a15d9aedf02df349d86953d31068e4a?rik=%2bcE5dUl6kEB2ug&riu=http%3a%2f%2fstealplug.com.my%2fcdn%2fshop%2fproducts%2fYeezy700Waverunner1.jpg%3fv%3d1671092469&ehk=ULtdKvVmQqU7XMe4Y7WNgk0H6SicuYULV9Lb8WL4c%2bQ%3d&risl=&pid=ImgRaw&r=0" alt="adidas Yeezy Boost 700" style="width: 100%; height: 108%; object-fit: cover;">
+                    <img src="https://th.bing.com/th/id/R.7a15d9aedf02df349d86953d31068e4a?rik=%2bcE5dUl6kEB2ug&riu=http%3a%2f%2fstealplug.com.my%2fcdn%2fshop%2fproducts%2fYeezy700Waverunner1.jpg%3fv%3d1671092469&ehk=ULtdKvVmQqU7XMe4Y7WNgk0H6SicuYULV9Lb8WL4c%2bQ%3d&risl=&pid=ImgRaw&r=0" alt="adidas Yeezy Boost 700" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
                 <div class="product-info">
-                    <div class="product-brand">Adidas</div>
+                    <div class="product-brand">adidas</div>
                     <div class="product-name">Yeezy Boost 700</div>
                     <div class="product-price">S/350.00</div>
                 </div>
             </div>
 
-            <!-- Reebok -->
-            <div class="product-card">
+            <div class="product-card" onclick="abrirModal('Reebok', 'Reebok Classic Leather Legacy', 'S/889.00')" style="cursor: pointer;">
                 <div class="product-image">
-                    <img src="https://reebok.bynder.com/transform/a7dbf4c7-8c0a-488e-9ed2-3e97482f3f27/100210141_SLC_eCom-tif?io=transform:scale,width:600" alt="Reebok Classic Leather Legacy" style="width: 100%; height: 99%; object-fit: cover;">
+                    <img src="https://reebok.bynder.com/transform/a7dbf4c7-8c0a-488e-9ed2-3e97482f3f27/100210141_SLC_eCom-tif?io=transform:scale,width:600" alt="Reebok Classic Leather Legacy" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
                 <div class="product-info">
-                    <div class="product-brand">Reebok</div>
+                    <div class="product-brand">reebok</div>
                     <div class="product-name">Classic Leather Legacy</div>
                     <div class="product-price">S/889.00</div>
                 </div>
             </div>
 
-            <!-- Amiri -->
-            <div class="product-card">
+            <div class="product-card" onclick="abrirModal('Amiri', 'Amiri Skel Sneaker', 'S/1,500.00')" style="cursor: pointer;">
                 <div class="product-image">
-                    <img src="https://ansh46.com/cdn/shop/files/M14A0897_bab0414b-434d-4aa6-84f5-ff3677e66165_1024x1024.jpg?v=1719243501" alt="Amiri Skel Sneaker" style="width: 100%; height: 110%; object-fit: cover;">
+                    <img src="https://ansh46.com/cdn/shop/files/M14A0897_bab0414b-434d-4aa6-84f5-ff3677e66165_1024x1024.jpg?v=1719243501" alt="Amiri Skel Sneaker" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
                 <div class="product-info">
-                    <div class="product-brand">Amiri</div>
+                    <div class="product-brand">amiri</div>
                     <div class="product-name">Skel Sneaker</div>
                     <div class="product-price">S/1,500.00</div>
                 </div>
             </div>
 
-            <!-- Louis Vuitton -->
-            <div class="product-card">
+            <div class="product-card" onclick="abrirModal('Louis Vuitton', 'Louis Vuitton LV Archlight', 'S/1,800.00')" style="cursor: pointer;">
                 <div class="product-image">
-                    <img src="https://tse4.mm.bing.net/th/id/OIP.IOo0q1r7Try6P2cR1ahqwAHaHa?w=2400&h=2400&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Louis Vuitton LV Archlight" style="width: 100%; height: 99%; object-fit: cover;">
+                    <img src="https://tse4.mm.bing.net/th/id/OIP.IOo0q1r7Try6P2cR1ahqwAHaHa?w=2400&h=2400&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Louis Vuitton LV Archlight" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
                 <div class="product-info">
-                    <div class="product-brand">Louis Vuitton</div>
+                    <div class="product-brand">louis vuitton</div>
                     <div class="product-name">LV Trainer 'White Black Panda</div>
                     <div class="product-price">S/1,800.00</div>
                 </div>
             </div>
 
-            <!-- Bape -->
-            <div class="product-card">
+            <div class="product-card" onclick="abrirModal('Bape', 'Bape Sta White', 'S/999.00')" style="cursor: pointer;">
                 <div class="product-image">
-                    <img src="https://tse3.mm.bing.net/th/id/OIP._Z0pUm91dpLvdoh0Y3ohbwHaHa?w=1100&h=1100&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Bape Sta White" style="width: 100%; height: 99%; object-fit: cover;">
+                    <img src="https://tse3.mm.bing.net/th/id/OIP._Z0pUm91dpLvdoh0Y3ohbwHaHa?w=1100&h=1100&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Bape Sta White" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
                 <div class="product-info">
-                    <div class="product-brand">Bape</div>
+                    <div class="product-brand">bape</div>
                     <div class="product-name">Bape Sta White</div>
                     <div class="product-price">S/999.00</div>
                 </div>
             </div>
 
-            <!-- Off-White -->
-            <div class="product-card">
+            <div class="product-card" onclick="abrirModal('Off-White', 'Off-White Patent \'Black White\'', 'S/1,400.00')" style="cursor: pointer;">
                 <div class="product-image">
-                    <img src="https://images.moresneakers.com/off-white-out-of-office-patent-black-white-omia189s22lea0020110-16522548331381.jpg" alt="Patent 'Black White'" style="width: 100%; height: 99%; object-fit: cover;">
+                    <img src="https://images.moresneakers.com/off-white-out-of-office-patent-black-white-omia189s22lea0020110-16522548331381.jpg" alt="Patent 'Black White'" style="width: 100%; height: 100%; object-fit: contain;">
                 </div>
                 <div class="product-info">
-                    <div class="product-brand">Off-White</div>
+                    <div class="product-brand">off-white</div>
                     <div class="product-name">Patent 'Black White'</div>
                     <div class="product-price">S/1,400.00</div>
                 </div>
             </div>
+        </div>
+
+<div id="productModal" style="display: none; position: fixed; z-index: 1000; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); backdrop-filter: blur(8px); align-items: center; justify-content: center;">
+    
+    <div style="background-color: #0d0d0d; border: 1px solid var(--electric-orange); padding: 2rem; width: 90%; max-width: 500px; border-radius: 15px; position: relative; box-shadow: 0 10px 30px rgba(249, 104, 21, 0.3); text-align: center;">
+        
+        <span onclick="cerrarModal()" style="position: absolute; top: 15px; right: 20px; color: #fff; font-size: 1.8rem; cursor: pointer; font-weight: bold; transition: color 0.2s;">&times;</span>
+        
+        <h3 id="modalBrand" style="color: var(--electric-orange); text-transform: uppercase; letter-spacing: 3px; font-size: 0.9rem; margin-bottom: 0.5rem;">MARCA</h3>
+        <h2 id="modalName" style="color: var(--white); font-size: 1.8rem; margin-bottom: 1rem;">Nombre de la Zapatilla</h2>
+        <p id="modalPrice" style="color: var(--electric-orange); font-size: 1.5rem; font-weight: bold; margin-bottom: 1.5rem;">$0.00</p>
+        
+        <p style="color: #aaa; margin-bottom: 0.5rem; font-size: 0.9rem;">Selecciona tu talla (US):</p>
+        <div style="display: flex; gap: 0.5rem; justify-content: center; margin-bottom: 2rem; flex-wrap: wrap;">
+            <button class="size-btn" onclick="seleccionarTalla(this)" style="background: transparent; border: 1px solid #444; color: #fff; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; font-weight: bold;">8.5</button>
+            <button class="size-btn" onclick="seleccionarTalla(this)" style="background: transparent; border: 1px solid #444; color: #fff; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; font-weight: bold;">9</button>
+            <button class="size-btn" onclick="seleccionarTalla(this)" style="background: transparent; border: 1px solid #444; color: #fff; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; font-weight: bold;">9.5</button>
+            <button class="size-btn" onclick="seleccionarTalla(this)" style="background: transparent; border: 1px solid #444; color: #fff; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; font-weight: bold;">10</button>
+            <button class="size-btn" onclick="seleccionarTalla(this)" style="background: transparent; border: 1px solid #444; color: #fff; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; font-weight: bold;">10.5</button>
+        </div>
+        
+       <button onclick="enviarPedido()" style="width: 100%; padding: 1rem; border-radius: 50px; border: none; font-size: 1.1rem; font-weight: 800; cursor: pointer; background-color: #F96815; color: #000000; text-transform: uppercase; letter-spacing: 1px;">Añadir al Carrito</button>
+    </div>
+</div>
+
+    <section id="about" style="padding: 4rem 2rem; max-width: 1400px; margin: 0 auto; text-align: center;">
+        <h2 style="font-size: 3rem; text-transform: uppercase; color: var(--electric-orange); margin-bottom: 3rem; letter-spacing: 3px;">Nuestra Ubicación</h2>
+        <p style="color: var(--white); margin-bottom: 2rem; font-size: 1.25rem;">Visítanos en nuestra tienda física. ¡Te esperamos!</p>
+        
+            <iframe 
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3902.367451671951!2d-77.00103682475792!3d-12.018204741370015!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x9105c5530cac8bf5%3A0xb2281063e9e0a1aa!2sLa%20Cl%C3%ADnica%20del%20Coraz%C3%B3n!5e0!3m2!1ses!2spe!4v1778894794783!5m2!1ses!2spe" 
+                width="100%" 
+                height="450" 
+                style="border:0;" 
+                allowfullscreen="" 
+                loading="lazy" 
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
         </div>
     </section>
 </body>
@@ -471,7 +528,31 @@
     font-weight: 600;
 }
 </style>
-<footer class="footer">
+
+<div id="cartPanel" style="position: fixed; top: 0; right: -400px; width: 100%; max-width: 400px; height: 100%; background-color: #0d0d0d; border-left: 1px solid #F96815; z-index: 2000; box-shadow: -10px 0 30px rgba(0,0,0,0.5); display: flex; flex-direction: column; transition: right 0.3s ease; padding: 2rem;">
+    
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #222; padding-bottom: 1rem; margin-bottom: 1rem;">
+        <h2 style="color: #ffffff; font-size: 1.5rem; text-transform: uppercase; letter-spacing: 1px;">Tu Carrito</h2>
+        <span onclick="alternarCarrito()" style="color: #fff; font-size: 1.8rem; cursor: pointer; font-weight: bold;">&times;</span>
+    </div>
+
+    <div id="cartItemsContainer" style="flex: 1; overflow-y: auto; padding-right: 0.5rem; display: flex; flex-direction: column; gap: 1rem;">
+        <!-- Mensaje por defecto si está vacío -->
+        <p id="emptyCartMessage" style="color: #666; text-align: center; margin-top: 2rem;">Tu carrito está vacío.</p>
+    </div>
+
+    <div style="border-top: 1px solid #222; padding-top: 1rem; margin-top: 1rem;">
+        <div style="display: flex; justify-content: space-between; color: #fff; font-size: 1.2rem; font-weight: bold; margin-bottom: 1.5rem;">
+            <span>Total:</span>
+            <span id="cartTotalText" style="color: #F96815;">S/0.00</span>
+        </div>
+        <button onclick="procesarPagoFinal()" style="width: 100%; padding: 1rem; border-radius: 50px; border: none; font-size: 1.1rem; font-weight: 800; cursor: pointer; background-color: #F96815; color: #000000; text-transform: uppercase; letter-spacing: 1px;">
+            Proceder al Pago
+        </button>
+    </div>
+</div>
+
+<footer id="contact" class="footer">
     <div class="footer-container">
         <div class="footer-section">
             <h3>Sobre Nosotros</h3>
@@ -491,4 +572,175 @@
     </div>
 </footer>
 
+<script>
+    let tallaSeleccionada = "";
+    let carrito = [];
+
+    function abrirModal(marca, nombre, precio) {
+        document.getElementById('modalBrand').innerText = marca;
+        document.getElementById('modalName').innerText = nombre;
+        document.getElementById('modalPrice').innerText = precio;
+        
+        tallaSeleccionada = "";
+        let botones = document.querySelectorAll('.size-btn');
+        botones.forEach(btn => {
+            btn.style.backgroundColor = 'transparent';
+            btn.style.borderColor = '#444';
+        });
+
+        document.getElementById('productModal').style.display = 'flex';
+    }
+
+    function cerrarModal() {
+        document.getElementById('productModal').style.display = 'none';
+    }
+
+    function seleccionarTalla(boton) {
+        let botones = document.querySelectorAll('.size-btn');
+        botones.forEach(btn => {
+            btn.style.backgroundColor = 'transparent';
+            btn.style.borderColor = '#444';
+        });
+        
+        boton.style.backgroundColor = '#F96815';
+        boton.style.borderColor = '#F96815';
+        tallaSeleccionada = boton.innerText;
+    }
+
+    function alternarCarrito() {
+        let panel = document.getElementById('cartPanel');
+        if (panel.style.right === "0px") {
+            panel.style.right = "-400px";
+        } else {
+            panel.style.right = "0px";
+        }
+    }
+
+    function enviarPedido() {
+        if (tallaSeleccionada === "") {
+            alert("Por favor, selecciona una talla antes de continuar.");
+            return;
+        }
+        
+        let marca = document.getElementById('modalBrand').innerText;
+        let nombre = document.getElementById('modalName').innerText;
+        let precioTexto = document.getElementById('modalPrice').innerText;
+        
+        let precioNumero = parseFloat(precioTexto.replace(/[^0-9.]/g, ''));
+
+
+        let item = {
+            id: Date.now(), // ID único basado en tiempo
+            marca: marca,
+            nombre: nombre,
+            talla: tallaSeleccionada,
+            precio: precioNumero,
+            precioOriginalTexto: precioTexto
+        };
+
+        carrito.push(item);
+        
+        actualizarInterfazCarrito();
+        cerrarModal();
+        alternarCarrito();
+    }
+
+    function actualizarInterfazCarrito() {
+        let container = document.getElementById('cartItemsContainer');
+        let countBadge = document.getElementById('cartCount');
+        let totalText = document.getElementById('cartTotalText');
+        
+        countBadge.innerText = carrito.length;
+        
+        container.innerHTML = "";
+        
+        if (carrito.length === 0) {
+            container.innerHTML = '<p id="emptyCartMessage" style="color: #666; text-align: center; margin-top: 2rem;">Tu carrito está vacío.</p>';
+            totalText.innerText = "S/0.00";
+            return;
+        }
+        
+        let totalAcumulado = 0;
+        
+        carrito.forEach(item => {
+            totalAcumulado += item.precio;
+            
+            let itemHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; background-color: #111; border: 1px solid #222; padding: 1rem; border-radius: 10px;">
+                    <div style="text-align: left;">
+                        <h4 style="color: #F96815; font-size: 0.8rem; text-transform: uppercase; margin: 0;">${item.marca}</h4>
+                        <h3 style="color: #fff; font-size: 1rem; margin: 2px 0;">${item.nombre}</h3>
+                        <p style="color: #aaa; font-size: 0.85rem; margin: 0;">Talla US: <strong>${item.talla}</strong></p>
+                        <span style="color: #F96815; font-size: 0.95rem; font-weight: bold;">${item.precioOriginalTexto}</span>
+                    </div>
+                    <button onclick="eliminarDelCarrito(${item.id})" style="background: transparent; border: none; color: #ff4444; font-size: 1.2rem; cursor: pointer; padding: 0 5px;">🗑️</button>
+                </div>
+            `;
+            container.innerHTML += itemHTML;
+        });
+        
+        let simboloMoneda = carrito[0].precioOriginalTexto.includes('$') ? '$' : 'S/';
+        totalText.innerText = simboloMoneda + totalAcumulado.toFixed(2);
+    }
+
+    function eliminarDelCarrito(idItem) {
+        carrito = carrito.filter(item => item.id !== idItem);
+        actualizarInterfazCarrito();
+    }
+
+    function procesarPagoFinal() {
+        if (carrito.length === 0) {
+            alert("Tu carrito está vacío. Agrega zapatillas para continuar.");
+            return;
+        }
+        alert("¡Pedido recibido con éxito! Redirigiendo a la plataforma segura de pago para tus " + carrito.length + " artículos.");
+        carrito = [];
+        actualizarInterfazCarrito();
+        alternarCarrito();
+    }
+
+    window.onclick = function(event) {
+        let modal = document.getElementById('productModal');
+        if (event.target == modal) {
+            cerrarModal();
+        }
+    }
+
+function filtrarZapatillas() {
+    // 1. Obtener el texto que escribió el usuario en el buscador
+    let input = document.getElementById('brandSearch');
+    let filter = input.value.toLowerCase();
+    
+    // 2. Seleccionar todas las tarjetas de zapatillas y la sección de la tienda
+    let cards = document.querySelectorAll('.product-card');
+    let section = document.getElementById('shop');
+    
+    let huboCoincidencia = false;
+
+    cards.forEach(card => {
+
+        let brandElement = card.querySelector('.product-brand');
+        let nameElement = card.querySelector('.product-name');
+        
+        let brandText = brandElement ? (brandElement.innerText || brandElement.textContent).toLowerCase() : "";
+        let nameText = nameElement ? (nameElement.innerText || nameElement.textContent).toLowerCase() : "";
+        
+        if (brandText.indexOf(filter) > -1 || nameText.indexOf(filter) > -1) {
+            card.style.display = ""; 
+            huboCoincidencia = true;
+        } else {
+            card.style.display = "none";
+        }
+    });
+
+    if (filter.length > 1 && huboCoincidencia && section) {
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    
+    if (filter === "") {
+        cards.forEach(card => card.style.display = "");
+    }
+}
+</script>
+</html>
        
